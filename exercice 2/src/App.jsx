@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 
 import StuffForm from "./components/StuffForm";
 import StuffCard from "./components/StuffCard";
@@ -19,7 +19,18 @@ const INITIAL_STUFFS = [
 ];
 
 export default function App() {
-  const [stuffs, setStuffs] = React.useState(INITIAL_STUFFS);
+  const [stuffs, setStuffs] = useState(INITIAL_STUFFS);
+
+  const handleAddStuff = (name, price) => {
+    console.log(`A new object named ${name}, price ${price}$ will be added to the list`);
+    
+    const newStuff = {
+      name: name,
+      price: price,
+    };
+    
+    setStuffs([...stuffs, newStuff]);
+  };
 
   return (
     <>
@@ -27,7 +38,7 @@ export default function App() {
         <h1>My Stuff</h1>
       </header>
 
-      <StuffForm></StuffForm>
+      <StuffForm onSubmit={handleAddStuff}></StuffForm>
 
       <div className="stuff-list">
         {stuffs.map((stuff, index) => (
